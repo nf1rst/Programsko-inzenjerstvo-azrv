@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:58105",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\ninaf\\Desktop\\schwanz\\iii\\semestar 5\\prog ing\\CODING PROJECT\\prog-ing-azrv.Server\\..\\prog-ing-azrv.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

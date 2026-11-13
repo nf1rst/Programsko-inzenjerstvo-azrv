@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="prog-ing-azrv.client/prog-ing-azrv.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="prog-ing-azrv.Server/prog-ing-azrv.Server.csproj" />
+</Solution>

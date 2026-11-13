@@ -1,0 +1,6 @@
+@prog_ing_azrv.Server_HostAddress = http://localhost:5191
+
+GET {{prog_ing_azrv.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
