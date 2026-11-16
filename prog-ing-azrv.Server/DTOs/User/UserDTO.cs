@@ -1,4 +1,4 @@
-﻿namespace prog_ing_azrv.Server.DTOs
+﻿namespace prog_ing_azrv.Server.DTOs.User
 {
     public class UserDTO
     {

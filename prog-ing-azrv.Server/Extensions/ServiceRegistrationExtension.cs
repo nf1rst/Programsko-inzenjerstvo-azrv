@@ -9,6 +9,7 @@ namespace prog_ing_azrv.Server.Extensions
         public static IServiceCollection RegisterServiceAbstractions(this IServiceCollection services)
         {
             services.AddScoped<IUserSErvice, UserService>();
+            services.AddScoped<ISkillService, SkillService>();
 
             return services;
         }

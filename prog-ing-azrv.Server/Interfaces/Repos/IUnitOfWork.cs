@@ -3,6 +3,7 @@
     public interface IUnitOfWork:IDisposable
     {
         public IUserRepo Users{ get; }
+        public ISkillRepo Skills { get; }
 
         Task<int> SaveChangesAsync();
     }

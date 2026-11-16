@@ -1,4 +1,4 @@
-﻿using prog_ing_azrv.Server.DTOs;
+﻿using prog_ing_azrv.Server.DTOs.User;
 using prog_ing_azrv.Server.Interfaces.Repos;
 using prog_ing_azrv.Server.Interfaces.Services;
 using prog_ing_azrv.Server.Models;
