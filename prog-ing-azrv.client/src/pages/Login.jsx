@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Login.css';
 
-function Login() {
+function Login({ onGoToRegister }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -68,7 +68,10 @@ function Login() {
                 </button>
 
                 <p className="login-register">
-                    Nemate račun? Registrirajte se ovdje
+                    Nemate račun?{' '}
+                    <button type="button" className="login-link" onClick={onGoToRegister}>
+                        Registrirajte se ovdje
+                    </button>
                 </p>
             </form>
         </div>
