@@ -29,13 +29,12 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
-
-builder.Services.AddDbContext<AzrvContext>();
-builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>(o => o.Password.RequiredLength = 5)
     .AddEntityFrameworkStores<AzrvContext>();
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
 
 app.MapGroup("/api/auth").MapIdentityApi<User>();
 
@@ -53,7 +52,6 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
 
 app.MapFallbackToFile("/index.html");
 

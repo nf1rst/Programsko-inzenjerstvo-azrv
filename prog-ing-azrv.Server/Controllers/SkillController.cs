@@ -16,10 +16,11 @@ namespace prog_ing_azrv.Server.Controllers
             this.SkillService = SkillService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAllSkills()
         {
             return Ok(await SkillService.GetAllSkills());
         }
+        
     }
 }
