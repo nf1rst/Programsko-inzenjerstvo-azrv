@@ -2,14 +2,13 @@ import { useState } from 'react';
 import './Login.css';
 
 function Login() {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-  
-    function handleSubmit(e) {
-        e.preventDefault(); //spriječi refresh
+    async function handleSubmit(e) {
+        e.preventDefault();
 
         if (!username.trim() || !password) {
             setError('Upiši korisničko ime i lozinku.');
@@ -17,7 +16,28 @@ function Login() {
         }
 
         setError('');
-        console.log('Prijava:', username);
+        setLoading(true);
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ username: username.trim(), password })
+            });
+
+            if (response.ok) {
+                console.log('Uspješna prijava:', username);
+            } else if (response.status === 400 || response.status === 401) {
+                setError('Pogrešno korisničko ime ili lozinka.');
+            } else {
+                setError('Greška na serveru. Pokušaj ponovno.');
+            }
+        } catch {
+            setError('Server nije dostupan.');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -41,11 +61,10 @@ function Login() {
                     onChange={e => setPassword(e.target.value)}
                 />
 
-                
                 {error && <p className="login-error">{error}</p>}
 
-                <button className="login-button" type="submit">
-                    Ulogiraj se
+                <button className="login-button" type="submit" disabled={loading}>
+                    {loading ? 'Prijava…' : 'Ulogiraj se'}
                 </button>
 
                 <p className="login-register">
