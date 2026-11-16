@@ -38,6 +38,12 @@ app.UseHttpsRedirection();
 
 app.MapGroup("/api/auth").MapIdentityApi<User>();
 
+app.MapPost("/api/auth/logout", async (SignInManager<User> signInmanager) =>
+{
+    await signInmanager.SignOutAsync().ConfigureAwait(false);
+    return Results.Ok();
+}).RequireAuthorization();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
