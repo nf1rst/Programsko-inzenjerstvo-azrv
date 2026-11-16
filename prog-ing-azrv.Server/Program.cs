@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using prog_ing_azrv.Server.Data;
 using prog_ing_azrv.Server.Extensions;
+using prog_ing_azrv.Server.Mapper;
 using prog_ing_azrv.Server.Models;
 using System.Text;
 
@@ -20,33 +23,31 @@ builder.Services.RegisterServiceAbstractions();
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<AzrvContext>();
+//builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<AzrvContext>();
+//for the built in jwt token generationfrom MapIdentityApi
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-        };
-    });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
+builder.Services.AddIdentityApiEndpoints<User>(o => o.Password.RequiredLength = 5)
+    .AddEntityFrameworkStores<AzrvContext>();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
 app.MapGroup("/api/auth").MapIdentityApi<User>();
+
+app.MapPost("/api/auth/logout", async (SignInManager<User> signInmanager) =>
+{
+    await signInmanager.SignOutAsync().ConfigureAwait(false);
+    return Results.Ok();
+}).RequireAuthorization();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapControllers();
+
 
 app.UseDefaultFiles();
 app.MapStaticAssets();
@@ -57,11 +58,6 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 

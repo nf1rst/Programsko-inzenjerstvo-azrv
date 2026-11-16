@@ -9,6 +9,7 @@ namespace prog_ing_azrv.Server.Extensions
 
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ISkillRepo, SkillRepo>();
 
             return services;
         }

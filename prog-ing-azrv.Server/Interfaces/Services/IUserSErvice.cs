@@ -1,4 +1,4 @@
-﻿using prog_ing_azrv.Server.DTOs;
+﻿using prog_ing_azrv.Server.DTOs.User;
 
 namespace prog_ing_azrv.Server.Interfaces.Services
 {
