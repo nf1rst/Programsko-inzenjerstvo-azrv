@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Login.css';
 
 function Login({ onGoToRegister }) {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -10,8 +10,8 @@ function Login({ onGoToRegister }) {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        if (!username.trim() || !password) {
-            setError('Upiši korisničko ime i lozinku.');
+        if (!email.trim() || !password) {
+            setError('Upiši e-mail i lozinku.');
             return;
         }
 
@@ -19,17 +19,17 @@ function Login({ onGoToRegister }) {
         setLoading(true);
 
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch('/api/auth/login?useCookies=true', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ username: username.trim(), password })
+                body: JSON.stringify({ email: email.trim(), password })
             });
 
             if (response.ok) {
-                console.log('Uspješna prijava:', username);
+                console.log('Uspješna prijava:', email);
             } else if (response.status === 400 || response.status === 401) {
-                setError('Pogrešno korisničko ime ili lozinka.');
+                setError('Pogrešan e-mail ili lozinka.');
             } else {
                 setError('Greška na serveru. Pokušaj ponovno.');
             }
@@ -47,10 +47,10 @@ function Login({ onGoToRegister }) {
 
                 <input
                     className="login-input"
-                    type="text"
-                    placeholder="Korisničko ime"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                 />
 
                 <input
