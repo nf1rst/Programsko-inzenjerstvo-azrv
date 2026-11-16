@@ -11,7 +11,7 @@ using prog_ing_azrv.Server.Data;
 namespace prog_ing_azrv.Server.Migrations
 {
     [DbContext(typeof(AzrvContext))]
-    [Migration("20261114212804_Init")]
+    [Migration("20261116100212_Init")]
     partial class Init
     {
         /// <inheritdoc />

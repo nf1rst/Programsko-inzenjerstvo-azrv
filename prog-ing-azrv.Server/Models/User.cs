@@ -5,7 +5,6 @@ namespace prog_ing_azrv.Server.Models
 {
     public class User:IdentityUser
     {
-        public int Id{ get; set; }
         public string? Bio{ get; set; }
         public ICollection<UserUser> FriendshipsFirst{ get; set; }= new List<UserUser>();
         public ICollection<UserUser> FriendshipsSecond{ get; set; }= new List<UserUser>();
