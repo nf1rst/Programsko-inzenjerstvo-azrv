@@ -1,20 +1,32 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
 
 function App() {
     const [page, setPage] = useState('login');
+    const [successMessage, setSuccessMessage] = useState('');
 
     if (page === 'register') {
-        // Privremeno – ovdje dolazi Registracija (SCRUM-105)
         return (
-            <div>
-                <h1>Registracija</h1>
-                <button onClick={() => setPage('login')}>Natrag na prijavu</button>
-            </div>
+            <Register
+                onGoToLogin={() => setPage('login')}
+                onRegistered={() => {
+                    setSuccessMessage('Registracija uspješna! Sada se možeš prijaviti.');
+                    setPage('login');
+                }}
+            />
         );
     }
 
-    return <Login onGoToRegister={() => setPage('register')} />;
+    return (
+        <Login
+            message={successMessage}
+            onGoToRegister={() => {
+                setSuccessMessage('');
+                setPage('register');
+            }}
+        />
+    );
 }
 
 export default App;
