@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Login.css';
 
-function Login({ onGoToRegister }) {
+function Login({ onGoToRegister, message }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -61,6 +61,7 @@ function Login({ onGoToRegister }) {
                     onChange={e => setPassword(e.target.value)}
                 />
 
+                {message && !error && <p className="login-success">{message}</p>}
                 {error && <p className="login-error">{error}</p>}
 
                 <button className="login-button" type="submit" disabled={loading}>

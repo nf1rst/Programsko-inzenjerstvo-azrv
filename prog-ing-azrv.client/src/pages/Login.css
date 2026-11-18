@@ -87,3 +87,9 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.login-success {
+    margin: 0 0 -20px;
+    font-size: 15px;
+    color: #6fd36f;
+}

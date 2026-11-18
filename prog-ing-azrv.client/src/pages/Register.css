@@ -1,0 +1,16 @@
+/* Registracija: isti layout kao prijava (Login.css), samo narančasti gradijent prema Figmi */
+.register-page::before {
+    background: linear-gradient(to bottom, #d4720a, #1a0e04);
+}
+
+.register-page .login-form {
+    gap: 22px;
+}
+
+.register-page .login-title {
+    margin-bottom: 16px;
+}
+
+.register-page .login-button {
+    margin-top: 20px;
+}
