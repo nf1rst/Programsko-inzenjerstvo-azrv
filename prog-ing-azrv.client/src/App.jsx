@@ -21,6 +21,7 @@ function App() {
     return (
         <Login
             message={successMessage}
+            onLoggedIn={() => window.location.assign("/api/skill/health")}
             onGoToRegister={() => {
                 setSuccessMessage('');
                 setPage('register');
