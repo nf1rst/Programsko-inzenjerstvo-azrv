@@ -21,6 +21,16 @@ namespace prog_ing_azrv.Server.Controllers
         {
             return Ok(await SkillService.GetAllSkills());
         }
+        [HttpGet("health")]
+        public IActionResult HealthCheck()
+        {
+            var cookie = Request.Cookies[".AspNetCore.Identity.Application"];
+            if (cookie != null)
+            {
+                return Ok($"You are now logged into the application. You cookie: {cookie}");
+            }
+            return Unauthorized($"You do not have access to this you need a cookie. Your cookie: {cookie}");
+        }
         
     }
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Login.css';
 
-function Login({ onGoToRegister, message }) {
+function Login({ onGoToRegister, message, onLoggedIn }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -27,7 +27,7 @@ function Login({ onGoToRegister, message }) {
             });
 
             if (response.ok) {
-                console.log('Uspješna prijava:', email);
+                onLoggedIn?.(email.trim());
             } else if (response.status === 400 || response.status === 401) {
                 setError('Pogrešan e-mail ili lozinka.');
             } else {
